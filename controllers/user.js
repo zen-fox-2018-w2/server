@@ -17,7 +17,24 @@ module.exports = {
   },
   
    userLogin: (req, res) => {
-
-   },
-
+      User
+      .findOne({ email: req.body.email })
+      .then(user => {
+          if (user) {
+              if (dcrypt(req.body.password, user.password)) {
+                  let token = jwt.sign({
+                          email: user.email,
+                      }, process.env.JWT_SECRET)
+                      res.status(200).json({ acces_token: token })
+              } else {
+                  res.status(400).json({ msg: 'Username/password is wrong!' })
+              }
+          } else {
+              res.status(400).json({ msg: 'Username/password is wrong!' })
+          }
+      })
+      .catch(err => {
+          res.status(500).json(err)
+      })
+   }
 }
