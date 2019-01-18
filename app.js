@@ -8,6 +8,8 @@ require('dotenv').config()
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/users');
+var bookRouter = require('./routes/books');
+
 
 
 var app = express();
@@ -27,6 +29,7 @@ db.once('open', function () {
 
 app.use('/', indexRouter);
 app.use('/users', userRouter);
+app.use('/books', bookRouter);
 
 app.use(function (err, req, res, next) {
   res.locals.message = err.message;
@@ -35,4 +38,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.json('error');
 })
+
 module.exports = app;
