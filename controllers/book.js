@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     add_book: (req, res) => {
-        console.log(req.file, "=============================");
         if (req.headers.token) {
             var decoded = jwt.verify(req.headers.token, process.env.JWT_SECRET);
             let newData = {
