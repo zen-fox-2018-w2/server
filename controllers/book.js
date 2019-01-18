@@ -39,5 +39,15 @@ module.exports = {
                 message: 'Internal server error'
             })
           })
+    },
+    delete_ownCollection: (req, res) => {
+        console.log(req.params.id)
+        Book.findByIdAndDelete(req.params.id)
+            .then(response => {
+                res.status(200).json(response)
+            })
+            .catch(err => {
+                res.status(500).json(err)
+            })
     }
 }
