@@ -15,7 +15,7 @@ module.exports = {
       res.status(500).json(error)
     })
   },
-  
+
    userLogin: (req, res) => {
       User
       .findOne({ email: req.body.data.email })
@@ -24,6 +24,7 @@ module.exports = {
               if (dcrypt(req.body.data.password, user.password)) {
                   let token = jwt.sign({
                           email: user.email,
+                          _id: user._id
                       }, process.env.JWT_SECRET)
                       res.status(200).json({ access_token: token })
               } else {
